@@ -40,7 +40,13 @@ class ShopController extends Controller
      */
     public function store(ShopRequest $request)
     {
-        $shop =shop::create($request->all());
+        $input = $request->all();
+        if($request->hasFile('logo'))
+        {
+            $path  = $request->logo->store();
+            $input['logo'] =$path ;
+        }
+        $shop =shop::create($input);
         return back()->with('success','Data Created Successfully');
     }
 
