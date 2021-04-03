@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}" />
     </head>
     <body class="hold-transition sidebar-mini">
+        
         <div class="wrapper">
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('Logout')}}</a>
@@ -36,7 +37,13 @@
                     </nav>
                 </div>
             </aside>
-            <div class="content-wrapper"><div class="content">@yield('content')</div></div>
+            <div class="content-wrapper"><div class="content"> 
+            @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+            @yield('content')</div></div>
             <aside class="control-sidebar control-sidebar-dark">
                 <div class="p-3">
                     <h5>Title</h5>
@@ -45,6 +52,6 @@
             </aside>
             <footer class="main-footer"></footer>
         </div>
-        <script src="{{'js/app.js'}}"></script>
+        <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>

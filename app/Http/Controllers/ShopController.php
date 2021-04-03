@@ -43,7 +43,7 @@ class ShopController extends Controller
         $input = $request->all();
         if($request->hasFile('logo'))
         {
-            $path  = $request->logo->store();
+            $path  = $request->file('logo')->store('');
             $input['logo'] =$path ;
         }
         $shop =shop::create($input);
@@ -81,7 +81,13 @@ class ShopController extends Controller
      */
     public function update(ShopRequest $request, Shop $shop)
     {
-        $shop->update($request->all());
+        $input = $request->all();
+        if($request->hasFile('logo'))
+        {
+            $path  = $request->logo->store();
+            $input['logo'] =$path ;
+        }
+        $shop->update($input);
         return back()->with('success','Data Updated Successfully');
     }
 

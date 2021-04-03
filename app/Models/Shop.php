@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'name',
+        'email',
+        'logo',
+        'website'
+    ];
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }
