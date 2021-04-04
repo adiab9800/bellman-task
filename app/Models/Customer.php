@@ -15,4 +15,8 @@ class Customer extends Model
         'email',
         'shop_id',
     ];
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
+    }
 }

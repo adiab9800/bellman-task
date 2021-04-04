@@ -28,7 +28,7 @@ class CustomerRequest extends FormRequest
             'last_name'      => 'required|string|max:255',
             'email'          => 'required|email|unique:customers,email,'.$id,
             'shop_id'        => 'required|numeric|exists:shops,id',
-            'phone'          => 'required|numeric|max:20'
+            'phone'          => 'required|numeric'
         ];
 
     }
@@ -54,7 +54,6 @@ class CustomerRequest extends FormRequest
 
             "phone.required"      => "customer phone is required",
             "phone.numeric"       => "customer phone should be numeric",
-            "phone.max"           => "customer phone should be less than 20 characters",
             
         ];
     }

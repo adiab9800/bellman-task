@@ -22,7 +22,6 @@ class ShopRequest extends FormRequest
     public function rules()
     {
         $id = request('id') ?: 'NULL'; //To identify if request is for add or edit just take autoincremented id parameter form request.
-
         return [
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:shops,email,'.$id,

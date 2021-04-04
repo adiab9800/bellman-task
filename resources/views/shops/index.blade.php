@@ -2,7 +2,8 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Bordered Table</h3>
+      <h3 class="card-title">all Shops</h3>
+      <a class="card-tools btn btn-success" href="{{route('shops.create')}}">Add New</a>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -27,13 +28,12 @@
                 <td>{{$shop->website}}</td>
                 <td><img width="20px" height="20px" src="{{asset("storage/$shop->logo")}}"></td>
                 <td><a class="btn btn-success" href="{{route('shops.edit',$shop)}}">edit</a></td>
-                <td> <a href="#" class="delete-btn btn btn-danger">
-                    <form action="{{ route('shops.destroy', $shop->id) }}" method="">
-                        @csrf
-                        @method('delete')
-                    </form>
-                    delete
-                </a></td>
+                <td> <form action="{{route('shops.destroy',$shop)}}" method="POST">
+                  @method('DELETE')
+                  @csrf
+                  <button class="btn btn-danger" type="submit">Delete</button>               
+                 </form>
+                 </td>
             </tr>    
             
           @endforeach

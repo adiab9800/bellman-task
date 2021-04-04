@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
+
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::paginate(10);
+        return view('customers.index',compact('customers'));
     }
 
     /**
@@ -24,7 +32,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $shops = Shop::select('id','name')->get();
+        return view('customers.create',compact('shops'));
     }
 
     /**
@@ -33,9 +42,11 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        $input = $request->all();
+        $customer =Customer::create($input);
+        return back()->with('success','Data Created Successfully');
     }
 
     /**
@@ -46,7 +57,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customers.show',compact('customer'));
     }
 
     /**
@@ -57,7 +68,8 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        $shops = Shop::select('id','name')->get();
+        return view('customers.edit',compact('customer','shops'));
     }
 
     /**
@@ -67,9 +79,11 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        //
+        $input = $request->all();
+        $customer->update($input);
+        return back()->with('success','Data Updated Successfully');
     }
 
     /**
@@ -80,6 +94,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return back()->with('success','Data Deleted Successfully');
     }
 }
